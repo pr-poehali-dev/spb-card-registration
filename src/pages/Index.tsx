@@ -5,7 +5,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import Icon from '@/components/ui/icon';
 import { toast } from 'sonner';
@@ -59,7 +58,7 @@ const Index = () => {
   const [podorozhnik, setPodorozhnik] = useState<Podorozhnik | null>(null);
   const [intercom, setIntercom] = useState<Intercom | null>(null);
   const [showQR, setShowQR] = useState(false);
-  const [weather] = useState({ temp: 5, condition: 'Облачно', icon: 'Cloud' });
+  const weather = { temp: 5, condition: 'Облачно', icon: 'Cloud' };
 
   const [passportForm, setPassportForm] = useState({ series: '', number: '', inn: '' });
   const [podorozhnikForm, setPodorozhnikForm] = useState({ cardNumber: '', createNew: false });
@@ -74,10 +73,10 @@ const Index = () => {
   });
 
   const partners = [
-    { id: 1, name: 'Кофемания', discount: '10%', category: 'Кафе', distance: '0.5 км', icon: 'Coffee', lat: 59.9386, lng: 30.3141 },
-    { id: 2, name: 'Эрмитаж', discount: '15%', category: 'Музеи', distance: '1.2 км', icon: 'Landmark', lat: 59.9398, lng: 30.3146 },
-    { id: 3, name: 'Спортмастер', discount: '20%', category: 'Спорт', distance: '2.3 км', icon: 'Dumbbell', lat: 59.9311, lng: 30.3609 },
-    { id: 4, name: 'Буквоед', discount: '5%', category: 'Книги', distance: '0.8 км', icon: 'BookOpen', lat: 59.9343, lng: 30.3351 },
+    { id: 1, name: 'Кофемания', discount: '10%', category: 'Кафе', distance: '0.5 км', icon: 'Coffee' },
+    { id: 2, name: 'Эрмитаж', discount: '15%', category: 'Музеи', distance: '1.2 км', icon: 'Landmark' },
+    { id: 3, name: 'Спортмастер', discount: '20%', category: 'Спорт', distance: '2.3 км', icon: 'Dumbbell' },
+    { id: 4, name: 'Буквоед', discount: '5%', category: 'Книги', distance: '0.8 км', icon: 'BookOpen' },
   ];
 
   const handleRegister = () => {
@@ -166,6 +165,8 @@ const Index = () => {
     middleName: userData.middleName,
     birthDate: userData.birthDate,
   });
+
+  const bonusProgress = (userData.bonusPoints / 5000) * 100;
 
   if (!isRegistered) {
     return (
@@ -332,7 +333,12 @@ const Index = () => {
                   <span>До следующего уровня</span>
                   <span>{5000 - userData.bonusPoints} баллов</span>
                 </div>
-                <Progress value={(userData.bonusPoints / 5000) * 100} className="h-2" />
+                <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div
+                    className="bg-gradient-to-r from-[#F97316] to-[#EA580C] h-2 rounded-full transition-all duration-500"
+                    style={{ width: `${bonusProgress}%` }}
+                  />
+                </div>
               </div>
             </Card>
 
