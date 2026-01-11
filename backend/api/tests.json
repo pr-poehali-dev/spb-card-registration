@@ -1,0 +1,33 @@
+{
+  "tests": [
+    {
+      "name": "Test register user",
+      "method": "POST",
+      "path": "/?action=register",
+      "body": {
+        "phone": "+79991234567",
+        "firstName": "Иван",
+        "lastName": "Иванов",
+        "middleName": "Иванович",
+        "birthDate": "1990-01-01"
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "userId": "number",
+        "success": true
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Test get weather",
+      "method": "GET",
+      "path": "/?action=weather&city=spb",
+      "expectedStatus": 200,
+      "expectedBody": {
+        "temp": "number",
+        "condition": "string"
+      },
+      "bodyMatcher": "partial"
+    }
+  ]
+}
